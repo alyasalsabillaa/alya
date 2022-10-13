@@ -1,6 +1,6 @@
 import React, {useEffect } from 'react'
 import {useSelector, useDispatch } from 'react-redux'; 
-import {getPegawai, pegawaiSelectors} from '../features/counter/pegawaiSlice';  
+import {getPegawai, pegawaiSelectors, deletePegawai } from '../features/counter/pegawaiSlice';  
 import { Link } from 'react-router-dom'; 
 
 const ShowPegawai = () => {  
@@ -39,7 +39,7 @@ const ShowPegawai = () => {
           <td>{dataPegawai.kelurahan}</td> 
           <td>
           <Link to = {'edit/${pegawai.id}'} className='button is-info is small'>Edit</Link> 
-          <button className='button is-danger is small'>Delete</button> 
+          <button onClick = {() => dispatch(deletePegawai(pegawai.id))} className='button is-danger is small'>Delete</button> 
           </td>
         </tr>
         ))} 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from 'react-redux'; 
+import { useDispatch, useSelector } from 'react-redux'; 
 
 const EditPegawai = () => {
   const [nama, setNama] = useState("");
@@ -9,10 +9,36 @@ const EditPegawai = () => {
   const [kelurahan, setKelurahan] = useState("");
   const [id, setId] = useState(""); 
   const dispatch = useDispatch(); 
+  const navigate = useNavigate (); 
+  const { id } = useParams (); 
+
+conts pegawai = useSelector ((state) => pegawai.Selectors.selectById(state, id)); 
+
+  useEffect (() => { 
+    dispatch (getPegawai());  
+  }, [dispatch]); 
+
+  useEffect (() => { 
+    if(pegawai) { 
+      setNama(pegawai.nama); 
+      setProvinsi(pegawai.provinsi); 
+      setKabupaten(pegawai.kabupaten); 
+      setKecamatan(pegawai.kecamatan); 
+      setKelurahan(pegawai.kelurahan); 
+      setId(pegawai.id);
+    }
+  }, [pegawai]); 
+
+const handleUpdate = async (e) => { 
+  e.preventDefault (); 
+  await dispatch (updatePegawai({id, title, price})); 
+  navigate ('/'); 
+
+}
 
   return (
     <div>
-      <form className="box mt-5">
+      <form onSubmit = {handeUpdate} className="box mt-5">
         <div className="field">
           <label className="label">Nama</label>
           <div className="control">

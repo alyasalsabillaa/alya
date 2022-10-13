@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from 'react-redux'; 
 import {savePegawai} from '../features/counter/pegawaiSlice'; 
+import { useNavigate } from 'react-router-dom'; 
+
 const AddPegawai = () => {
   const [nama, setNama] = useState("");
   const [provinsi, setProvinsi] = useState("");
@@ -9,10 +11,17 @@ const AddPegawai = () => {
   const [kelurahan, setKelurahan] = useState("");
   const [id, setId] = useState(""); 
   const dispatch = useDispatch(); 
+  const navigate = useNavigate(); 
+
+    const createPegawai = async (e) => { 
+        e.preventDefault(); 
+        await dispatch(savePegawai({nama, provinsi, kabupaten, kecamatan, kelurahan, id})); 
+        navigate('/'); 
+    }
 
   return (
     <div>
-      <form onSubmit={} className="box mt-5">
+      <form onSubmit={createPegawai} className="box mt-5">
         <div className="field">
           <label className="label">Nama</label>
           <div className="control">
